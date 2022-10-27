@@ -1,0 +1,65 @@
+{
+  "name": "color-util",
+  "version": "2.2.3",
+  "description": "Color util with color format conversions and gradients",
+  "main": "dist/color-util.min.js",
+  "scripts": {
+    "test": "mocha --require babel-core/register ./test/**/*.spec.js",
+    "test-watch": "mocha --require babel-core/register -w ./test/**/*.spec.js",
+    "dev": "webpack-dev-server --env development",
+    "prebuild": "npm run test",
+    "build": "webpack -p --env production && npm run docs",
+    "toc": "markdown-toc -i README.md",
+    "api": "documentation build src/ColorUtil.js -f md > API.md",
+    "docs": "npm run toc && npm run api",
+    "docs-watch": "nodemon --watch src/ColorUtil.js --exec \"npm run docs\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakoivis/color-util.git"
+  },
+  "keywords": [
+    "color",
+    "colour",
+    "util",
+    "format",
+    "conversion",
+    "convert",
+    "rgb",
+    "hsv",
+    "hsl",
+    "int",
+    "hex",
+    "css string",
+    "alpha",
+    "32-bit",
+    "32 bit",
+    "gradient",
+    "matrix",
+    "circle"
+  ],
+  "author": "Jarmo Koivisto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jakoivis/color-util/issues"
+  },
+  "homepage": "https://github.com/jakoivis/color-util#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-add-module-exports": "^1.0.2",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.2.0",
+    "documentation": "^12.1.3",
+    "markdown-toc": "^1.2.0",
+    "mocha": "^6.2.2",
+    "nodemon": "^1.19.4",
+    "path": "^0.12.7",
+    "sinon": "^7.5.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0",
+    "webpack-merge": "^4.2.2"
+  },
+  "dependencies": {}
+}

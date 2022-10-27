@@ -1,0 +1,210 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <style>
+        .title {
+            color: black;
+            font-size: 4rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            width: max-content;
+            margin: 0.5rem auto;
+            padding: 0 1rem;
+        }
+        
+        .color {
+            width: 18px;
+            height: 18px;
+            float: left;
+            position: relative;
+            border: white 2px outset;
+            box-shadow: 0 0 0 2px rgb(0, 0, 0) inset;
+            margin: 1px;
+        }
+        
+        .cluster {
+            display: flex;
+            position: relative;
+            flex-wrap: wrap;
+            max-width: calc(24px * 15);
+            margin-bottom: 22px;
+            background-color: rgba(0, 0, 0, 0.25);
+        }
+        
+        .main_area1 {
+            display: flex;
+            width: fit-content;
+            margin: auto;
+        }
+        
+        .main_area2 {
+            display: block;
+            background-color: rgba(255, 255, 255, 0.75);
+            margin: 1rem auto;
+            padding: 1rem;
+            border: transparent 0.1rem outset;
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5) inset;
+        }
+        
+        .b {
+            display: block;
+            margin: 1rem auto;
+            width: 10rem;
+            height: 3rem;
+        }
+        
+        .t {
+            display: block;
+            margin: 1rem;
+        }
+        
+        .s {
+            display: block;
+            margin-bottom: 4rem;
+        }
+        
+        .s2 {
+            margin: 1.2rem auto;
+            line-height: 2rem;
+            display: block;
+            position: relative;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .s3 {
+            display: flex;
+        }
+        
+        .w {
+            color: red;
+            font-size: 2.5rem;
+            font-weight: bold;
+            padding-bottom: 1rem;
+        }
+        
+        .fs {
+            text-align: start;
+        }
+        
+        .sel {
+            height: 1.5rem;
+        }
+        
+        body {
+            display: block;
+            text-align: center;
+            justify-content: center;
+            background-image: linear-gradient(45deg, #b0b0b0 25%, transparent 25%), linear-gradient(-45deg, #b0b0b0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #b0b0b0 75%), linear-gradient(-45deg, transparent 75%, #b0b0b0 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">KK ColorPresets Tool</div>
+    <div class="main_area1">
+        <div class="main_area2">
+            <div class="w">
+                !!!backup your original file!!!
+            </div>
+            <div class="t">
+                [ ...\UserData\custom\ColorPresets.json ]
+            </div>
+            <input type="file" id="read_file" accept="application/JSON" style="text-align-last: center;font-size: 1.5rem;">
+            <div class="s">
+                <div class="s2">
+                    <input type="checkbox" id="sort">
+                    <label for="sort">Sort</label>
+                </div>
+                <div class="s2">
+                    <input type="checkbox" id="rd">
+                    <label for="rd">Remove duplicate</label>
+                </div>
+            </div>
+            <div class="s3">
+                <button class="b" type="button" onclick="run()">Run</button>
+                <button class="b" type="button" onclick="" id="dlb">Downlaod</button>
+            </div>
+        </div>
+        <div class="main_area2">
+            <div>
+                <div style="margin: auto auto 0.5rem auto;">
+                    <input type="checkbox" id="adv">
+                    <label for="adv">advence mode</label>
+                </div>
+                <fieldset id="cluster" class="fs">
+                    <legend>x-cluster</legend>
+                    <div sel>
+                        <input type="radio" id="c0" name="cluster">
+                        <label for="c0">3</label>
+                    </div>
+                    <div sel>
+                        <input type="radio" id="c1" name="cluster" checked>
+                        <label for="c1">6</label>
+                    </div>
+                    <div sel>
+                        <input type="radio" id="c2" name="cluster">
+                        <label for="c2">12</label>
+                    </div>
+                    <div sel>
+                        <input type="radio" id="c3" name="cluster">
+                        <label for="c3">24</label>
+                    </div>
+                </fieldset>
+                <fieldset id="white" class="fs">
+                    <legend>white</legend>
+                    <div sel>
+                        <input type="radio" id="wn" name="white" checked>
+                        <label for="wn">disable</label>
+                    </div>
+                    <div sel>
+                        <input type="radio" id="w0" name="white">
+                        <label for="w0">255</label>
+                    </div>
+                    <div sel>
+                        <input type="radio" id="w1" name="white">
+                        <label for="w1">320</label>
+                    </div>
+                    <div sel>
+                        <input type="radio" id="w2" name="white">
+                        <label for="w2">350</label>
+                    </div>
+                    <div sel>
+                        <input type="radio" id="w3" name="white">
+                        <label for="w3">384</label>
+                    </div>
+                </fieldset>
+                <fieldset id="black" class="fs">
+                    <legend>black</legend>
+                    <div sel>
+                        <input type="radio" id="bn" name="black" checked>
+                        <label for="bn">disable</label>
+                    </div>
+                    <div sel>
+                        <input type="radio" id="b0" name="black">
+                        <label for="b0">0</label>
+                    </div>
+                    <div sel>
+                        <input type="radio" id="b1" name="black">
+                        <label for="b1">-10</label>
+                    </div>
+                    <div sel>
+                        <input type="radio" id="b2" name="black">
+                        <label for="b2">-25</label>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div id="table" class="cluster t"></div>
+    </div>
+    <script type="module">
+        import colorutil from "./color-util-master/src/ColorUtil.js"; window.colorutil = colorutil;
+    </script>
+    <script src="main.js"></script>
+</body>
+
+</html>

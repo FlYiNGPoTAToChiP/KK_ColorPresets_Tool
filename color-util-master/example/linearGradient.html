@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Linear gradient</title>
+<script src="/color-util.js"></script>
+</head>
+<body>
+<canvas id="canvas" width="300" height="300"></canvas>
+
+<script>
+
+colorutil.rgb.draw('canvas', {
+    width: 300,
+    height: 300,
+    colors: colorutil.convert(
+        [0xff00a8, 0xfef6a1, 0x00e4ff],
+        colorutil.int.to.rgb)
+});
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>simple color picker</title>
+<script src="/color-util.js"></script>
+</head>
+<body>
+
+<div style='position:relative; width: 150px; height:150px;'>
+    <div id='hueColor' style='position:absolute;width:inherit;height:inherit;background-color:#FF0000'></div>
+    <canvas id='canvas' style='position:absolute;cursor:crosshair'></canvas>
+</div>
+
+<input type='range' id='hueSlider' value='0' min='0' max='1' step='0.01' onmousemove='onHueChange(this.value)' style='width:150px;'>
+
+<script>
+
+let width = 150;
+let height = 150;
+let rgb = colorutil.int.to.rgb(0xFF0000);
+let hueRgb = colorutil.int.to.rgb(0xFF0000);
+let hueDiv = document.getElementById('hueColor');
+let canvas = document.getElementById('canvas');
+let dragging = false;
+
+// since the drawing the gradient is heavy process
+// here we draw overlay gray gradient once and
+// only change the hue layer under the canvas
+initGrayscaleOverlay();
+
+canvas.addEventListener('mousedown', function(event) {
+    dragging = true;
+});
+
+document.body.addEventListener('mouseup', function() {
+    dragging = false;
+});
+
+// the final color is calculated from the actual gradient
+// which contains the hue color
+document.body.addEventListener('mousemove', function(event) {
+    if(!dragging) return;
+
+    let bounds = canvas.getBoundingClientRect();
+    let x = (event.clientX - bounds.left);
+    let y = (event.clientY - bounds.top);
+
+    let matrix = colorutil.convert(
+        [[0xFFFFFF, hueRgb], [0x000000]],
+        colorutil.any.to.rgb);
+
+    let gradient = colorutil.rgb.gradient({
+        colors: matrix,
+        width: 150,
+        height: 150,
+        repeatX: colorutil.repeat.stop,
+        repeatY: colorutil.repeat.stop
+    });
+
+    let rgb = gradient(x, y);
+
+    document.body.style.background = colorutil.rgb.to.cssrgb(rgb);
+});
+
+function onHueChange(hueValue) {
+    let hsv = colorutil.rgb.to.hsv(rgb);
+    hsv.h = hueValue;
+    rgb = colorutil.hsv.to.rgb(hsv);
+    hueRgb = colorutil.rgb.hue(rgb);
+
+    hueDiv.style.backgroundColor = colorutil.rgb.to.cssrgb(hueRgb);
+}
+
+function initGrayscaleOverlay() {
+    let colors = colorutil.convert(
+        [[0xFFFFFFFF, 0], [0x000000FF]],
+        colorutil.intrgba.to.rgb);
+
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let imageData  = ctx.createImageData(width, height);
+    let buffer = imageData.data.buffer;
+    let uint32View = new Uint32Array(buffer);
+    let uint8CView = new Uint8ClampedArray(buffer);
+
+    canvas.width = width;
+    canvas.height = height;
+
+    let gradient = colorutil.rgb.gradient({
+        colors: colors,
+        width: 150,
+        height: 150
+    });
+
+    for(let x = 0; x < width; x++) {
+
+        for(let y = 0; y < height; y++) {
+
+            let rgb = gradient(x, y);
+
+            uint32View[y * width + x] = colorutil.rgb.to.intabgr(rgb);
+        }
+    }
+
+    imageData.data.set(uint8CView);
+
+    ctx.putImageData(imageData, 0, 0);
+}
+
+</script>
+
+</body>
+
+</html>

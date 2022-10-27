@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Linear matrix gradient</title>
+<script src="/color-util.js"></script>
+</head>
+<body>
+<canvas id="canvas" width="300" height="300"></canvas>
+
+<script>
+
+colorutil.rgb.draw('canvas', {
+    width: 300,
+    height: 300,
+    colors: [
+        [
+            {r: 255},
+            {r: 255, g: 255}
+        ],
+        [
+            {b: 255},
+            {g: 255, b: 255}
+        ]
+    ]
+});
+
+</script>
+
+</body>
+
+</html>

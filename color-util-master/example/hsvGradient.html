@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HSV Gradient</title>
+<script src="/color-util.js"></script>
+</head>
+<body>
+<canvas id="canvas" width="300" height="300"></canvas>
+
+<script>
+
+colorutil.hsv.draw('canvas', {
+    type: 'circular',
+    width: 300,
+    height: 300,
+    colors: [
+        {
+            y: 0,
+            colors: [
+                {h:1, s:1, v:0.5, a:1},
+                {h:1, s:1, v:0, a:1},
+                {h:0, s:1, v:0.5, a:1},
+            ]
+        },
+        {
+            y: 0.8,
+            colors: [
+                {h:1, s:0, v:1, a:1},
+                {h:0.1, s:0.8, v:1, a:1},
+                {h:0.1, s:1, v:1, a:1},
+                {h:0.1, s:0.8, v:1, a:1},
+                {h:0, s:0, v:1, a:1},
+            ]
+        },
+        {
+            y: 1,
+            colors: [
+                {h:1, s:1, v:0.5, a:1},
+                {h:0, s:1, v:0.5, a:1},
+            ]
+        }
+    ],
+});
+
+</script>
+
+</body>
+
+</html>

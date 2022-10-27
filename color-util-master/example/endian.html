@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Endian</title>
+<script src="/color-util.js"></script>
+</head>
+<body>
+<canvas id="canvas" width="300" height="300"></canvas>
+
+<script>
+
+var width = 300;
+var height = 300;
+
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var imageData  = ctx.createImageData(width, height);
+var buffer = imageData.data.buffer;
+var uint32View = new Uint32Array(buffer);
+var uint8CView = new Uint8ClampedArray(buffer);
+
+canvas.width = width;
+canvas.height = height;
+
+// determine endianness outside the loop.
+// here we use intabgr for little-endian and intrgba for big-endian systems
+var toInt32 = colorutil.endian === 0 ?
+    colorutil.rgb.to.intabgr : colorutil.rgb.to.intrgba;
+
+var gradient = colorutil.rgb.gradient({
+    width: width,
+    height: height,
+    colors: colorutil.convert(
+        [[0xFF0000FF, 0xFFFF0099], [0x0000FF66, 0x00FFFF22]],
+        colorutil.intrgba.to.rgb
+    )
+});
+
+for(var x = 0; x < width; x++) {
+
+    for(var y = 0; y < height; y++) {
+
+        var rgb = gradient(x, y);
+
+        uint32View[y * width + x] = toInt32(rgb);
+    }
+}
+
+imageData.data.set(uint8CView);
+
+ctx.putImageData(imageData, 0, 0);
+
+</script>
+
+</body>
+
+</html>

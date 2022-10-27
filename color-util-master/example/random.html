@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Random gradient matrix</title>
+<script src="/color-util.js"></script>
+<script src="./example.js"></script>
+</head>
+<body>
+<canvas id="canvas1" width="300" height="300"></canvas>
+<canvas id="canvas2" width="300" height="300"></canvas>
+<br />
+Refresh the page to update colors
+<script>
+
+let colors = colorutil.convert(getRandomColors(), colorutil.int.to.rgb);
+
+let gradient1 = colorutil.rgb.gradient({
+    colors: colors,
+    width: 300,
+    height: 300,
+    onValidationComplete: function(colors) {
+        console.log(colors);
+    }
+});
+
+example.drawOnCanvas(300, 300, gradient1, 'canvas1');
+
+fixColorsForCircle(colors);
+
+let gradient2 = colorutil.rgb.gradient({
+    colors: colors,
+    type: 'circular',
+    centralize: true,
+    width: 300,
+    height: 300
+});
+
+example.drawOnCanvas(300, 300, gradient2, 'canvas2');
+
+function getRandomColors() {
+    var maxRowCount = 5;
+    var maxColumnCount = 3;
+
+    if(Math.random() < 0.5) {
+        maxRowCount = 3;
+        maxColumnCount = 5;
+    }
+
+    let result = [];
+    let rows = 1 + Math.random() * maxRowCount;
+
+    for (let y = 0; y < rows; y++) {
+        let cols = Math.random() * maxColumnCount;
+        let gradient = [];
+
+        result.push(gradient);
+
+        for (let x = 0; x < cols; x++) {
+            gradient.push((Math.random() * 0xFFFFFF)|0);
+        }
+    }
+
+    return result;
+}
+
+function fixColorsForCircle(matrix) {
+
+    for(var i = 0; i < matrix.length; i++) {
+
+        matrix[i].push(matrix[i][0]);
+    }
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HSL Gradient</title>
+<script src="/color-util.js"></script>
+</head>
+<body>
+<canvas id="canvas" width="300" height="300"></canvas>
+
+<script>
+
+colorutil.hsl.draw('canvas', {
+    type: 'circular',
+    width: 300,
+    height: 300,
+    centralize: true,
+    colors: [
+        [
+            {h:1, s:1, l:1},
+            {h:0, s:1, l:1},
+        ],
+        [
+            {h:1, s:1, l:0},
+            {h:0, s:1, l:0},
+        ]
+    ]
+});
+
+</script>
+
+</body>
+
+</html>
