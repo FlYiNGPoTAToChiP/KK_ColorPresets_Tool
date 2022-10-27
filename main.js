@@ -79,10 +79,11 @@ function run() {
 	let pre = "lstColor0";
 	let new_list = [];
 	let count = 0;
-	sorted.forEach(color => {
+	let last_index = sorted.length - 1;
+	sorted.forEach((color, c_index) => {
 		new_list.push(color);
 		count++;
-		if (count > 0 && count % 90 == 0) {
+		if ((count > 0 && (count % 90 == 0)) || c_index == last_index) {
 			index++;
 			new_file[`${pre}${index}`] = new_list;
 			new_list = [];
