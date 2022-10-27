@@ -1,4 +1,7 @@
 document.querySelector("#read_file").addEventListener("change", readFile, false);
+document.querySelector("#sel_file").addEventListener("click", () => {
+	document.querySelector("#read_file").click();
+}, false);
 document.querySelector("#dlb").addEventListener("click", download, false);
 document.querySelectorAll("div[sel]").forEach(ele => {
 	ele.classList.add("sel");
@@ -7,8 +10,6 @@ document.querySelectorAll("div[sel]").forEach(ele => {
 	});
 });
 
-
-//import colorutil from "./color-util-master/src/ColorUtil.js";
 let filedata = null;
 let sorted_file = null;
 
