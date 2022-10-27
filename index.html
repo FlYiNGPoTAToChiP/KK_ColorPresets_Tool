@@ -54,6 +54,12 @@
             height: 3rem;
         }
         
+        .b2 {
+            display: block;
+            margin: 1rem auto;
+            height: 3rem;
+        }
+        
         .t {
             display: block;
             margin: 1rem;
@@ -111,10 +117,10 @@
             <div class="w">
                 !!!backup your original file!!!
             </div>
-            <div class="t">
-                [ ...\UserData\custom\ColorPresets.json ]
+            <div>
+                <input type="file" id="read_file" accept="application/JSON" style="display:none;">
+                <button class="b2" type="button" onclick="" id="sel_file">...\UserData\custom\ColorPresets.json</button>
             </div>
-            <input type="file" id="read_file" accept="application/JSON" style="text-align-last: center;font-size: 1.5rem;">
             <div class="s">
                 <div class="s2">
                     <input type="checkbox" id="sort">
